@@ -4,12 +4,30 @@ export default function Form() {
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log("Form Submitted!")
+    const handleSubmit = async (e) => {
+        try {
+            e.preventDefault();
+            console.log("Form Submitted!")
 
-        setUsername("")
-        setEmail("")
+            const response = await fetch("http://localhost:8080/api/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username,
+                    email
+                })
+            })
+
+            const data = await response.json();
+
+            alert("user registered successfully!")
+            setUsername("")
+            setEmail("")
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     return (
@@ -27,7 +45,7 @@ export default function Form() {
                     />
                 </div>
                 <div>
-                    <label htmlFor="username">Email:</label>
+                    <label htmlFor="email">Email:</label>
                     <input
                         type="text"
                         id="email"

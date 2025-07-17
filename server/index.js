@@ -1,11 +1,13 @@
 const express = require("express")
 const mongoose = require("mongoose")
+const cors = require("cors")
 
 const PORT = 8080
 
 const app = express()
 
 app.use(express.json())
+app.use(cors())
 
 // connect to mongodb
 const connectDB = async () => {
